@@ -1,5 +1,5 @@
 from src.nqueens import NQueensProblem
-from src.astar import AStarSolver
+from astar_solver import AStarSolver
 
 def run_test():
     
