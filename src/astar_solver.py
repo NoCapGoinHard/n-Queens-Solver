@@ -32,7 +32,7 @@ class AStarSolver:
         }
 
     def solve(self):
-        start_time = time.time()
+        start_time = time.perf_counter()
         
         #INITIALIZATIONS
         frontier = []  
@@ -86,7 +86,7 @@ class AStarSolver:
         """
         saving info for report
         """
-        end_time = time.time()
+        end_time = time.perf_counter()
         self.metrics["time_taken"] = end_time - start_time
         self.metrics["solution_cost"] = cost
         self.metrics["solution_depth"] = depth

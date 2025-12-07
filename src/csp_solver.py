@@ -16,7 +16,7 @@ class CSPSolver:
         }
 
     def solve(self):
-        start_time = time.time()
+        start_time = time.perf_counter()
 
         problem = Problem()
 
@@ -37,7 +37,7 @@ class CSPSolver:
 
         solution_dict = problem.getSolution()
 
-        end_time = time.time()
+        end_time = time.perf_counter()
         self.metrics["time_taken"] = end_time - start_time
 
         if solution_dict:
