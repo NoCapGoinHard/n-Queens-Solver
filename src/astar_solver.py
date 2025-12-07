@@ -4,12 +4,15 @@ from src.nqueens import HEURISTICS
 
 class AStarSolver:
     """
+    ALL THE CODE HAS BEEN DONE IN COMPLIANCE WITH 
+    SLIDE 32 OF LECTURE ABOUT A* SEARCH AS REQUESTED
     Manual implementation as requested by professors
     As planned, it has been made in a way one could apply it with whatever heuristic is wanted
     """
 
     def __init__(self, problem, heuristic_code="1"):
         """
+        :param problem: problem instance (in this case it's the N-Queens problem)
         :param heuristic_name: switcher for heuristics (DEFINED IN nqueens.py)
         """
         self.problem = problem
@@ -31,7 +34,8 @@ class AStarSolver:
     def solve(self):
         start_time = time.time()
         
-        frontier = []
+        #INITIALIZATIONS
+        frontier = []  
         tie_breaker = 0
 
         initial_state = self.problem.get_initial_state()
@@ -42,6 +46,7 @@ class AStarSolver:
 
         explored = set()
 
+        #ACTUAL A* ITERATION
         while frontier:
             current_memory = len(frontier) + len(explored)
             if current_memory > self.metrics["max_memory"]:
@@ -49,6 +54,9 @@ class AStarSolver:
 
             current_f, _, current_state, current_g = heapq.heappop(frontier)
 
+            #lazy deletion: instead of searching and replacing in O(n), just popping.
+            #may slow down more late wrt scaling parameter increase
+            #and return good performances for more
             if current_state in explored:
                 continue
 
@@ -60,7 +68,7 @@ class AStarSolver:
                 return current_state
             
             for action, neighbor, step_cost in self.problem.get_successors(current_state):
-                if neighbor in explored:
+                if neighbor in explored: #NO REOPENING
                     continue
 
                 new_g = current_g + step_cost
